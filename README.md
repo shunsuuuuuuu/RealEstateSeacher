@@ -45,6 +45,7 @@ python scoreProperties.py -ds 大崎 -fee 18 -age 10 -area 40 -t 15
 実行完了すると、result/scored_dataset.csv が出力されます。
 
 ## 手順3：スコアの分析と可視化
+スコアが高かった物件の情報を棒グラフで表示します。その他、区ごとの傾向分析や築年数による家賃の変化などを分析しています。ご自身で追加で分析してみてください。
 ```
 python analizeScoreResults.py
 ```
