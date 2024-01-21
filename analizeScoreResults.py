@@ -86,8 +86,8 @@ print(df_result_234["val_monthly_fee"].mean())
 print(df_result_u10["val_monthly_fee"].mean())
 print(df_result_u20["val_monthly_fee"].mean())
 df_combined = pd.DataFrame({'新築': df_result_new["val_monthly_fee"], 
-                            '築2～4年': df_result_234["val_monthly_fee"],
-                            '築5～10年': df_result_u10["val_monthly_fee"],
+                            '築2~4年': df_result_234["val_monthly_fee"],
+                            '築5~10年': df_result_u10["val_monthly_fee"],
                             # '築11～20年': df_result_u20["val_monthly_fee"]
                             })
 plt.hist(df_combined, label=df_combined.columns ,bins=20)
