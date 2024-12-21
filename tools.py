@@ -14,7 +14,7 @@ def show_bar(x, y, yerr, tag_col):
     plt.ylim([y_min, y_max])
     if y_min == 0:
         plt.ylim([0, y_max])
-    plt.savefig("result/figure/section/" + tag_col + ".png")
+    plt.savefig("result/" + tag_col + ".png")
     plt.close()
 
 # def get_trans_detail(trans_detail):

@@ -1,0 +1,9 @@
+{
+    "weights": {
+        "monthly_fee": 0.3,
+        "floor_area": 0.1,
+        "distance_to_station": 0.2,
+        "build_age": 0.2,
+        "market_gap": 0.1
+    }
+}

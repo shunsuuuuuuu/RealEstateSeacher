@@ -43,7 +43,8 @@ for i in range(len(dataset_top_score)):
             fontsize=16,
         )
         plt.xticks(fontsize=12)
-    plt.show()
+    plt.savefig('result/top_score.png')
+    plt.close()
 
 
 #%% 区ごとの傾向分析~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -92,4 +93,5 @@ df_combined = pd.DataFrame({'新築': df_result_new["val_monthly_fee"],
                             })
 plt.hist(df_combined, label=df_combined.columns ,bins=20)
 plt.legend()
-plt.show()
+plt.savefig('result/fee_variation.png')
+plt.close()

@@ -97,36 +97,36 @@ isWalkable = df['アクセス'].str.contains('歩')
 df_numeric=df_numeric.loc[isWalkable]
 useBus = df['アクセス'].str.contains('バス')
 df_numeric=df_numeric.loc[~useBus]
-df_numeric["val_walk_time"] = [int(i.split('歩')[1].split('分')[0]) for i in df_numeric['アクセス']]
+df_numeric["distance_to_station"] = [int(i.split('歩')[1].split('分')[0]) for i in df_numeric['アクセス']]
 
 # 築年数を数値に変換
 df_numeric['築年数'] = [i.replace('新築','築0年') for i in df_numeric['築年数']]
-df_numeric['val_build_age'] = [int(re.sub(r"\D", "", i)) for i in df_numeric['築年数']]
+df_numeric['build_age'] = [int(re.sub(r"\D", "", i)) for i in df_numeric['築年数']]
 
 # 建物の階数を数値に変換
 ## ハイフンのみが表記されている行を削除
 df_numeric = df_numeric[~df_numeric['階数'].str.contains('-$')]
 floor_num = df_numeric['階数'].str.extract(r'(\d+)[^\d]*$').astype(float)
-df_numeric['val_floor'] = floor_num
+df_numeric['floor_num'] = floor_num
 
 # 家賃を数値に変換
-df_numeric['val_rental_fee'] = [float(i.split('万円')[0]) for i in df_numeric['家賃']]
+df_numeric['rental_fee'] = [float(i.split('万円')[0]) for i in df_numeric['家賃']]
 
 # 管理費を数値に変換
 df_numeric['管理費'] = [i.replace('-','0') for i in df_numeric['管理費']]
-df_numeric['val_service_fee'] = [int(i.split('円')[0])/10000 for i in df_numeric['管理費']]
+df_numeric['service_fee'] = [int(i.split('円')[0])/10000 for i in df_numeric['管理費']]
 
 # 家賃+管理費を計算
-df_numeric['val_monthly_fee'] = df_numeric['val_rental_fee'] + df_numeric['val_service_fee']
+df_numeric['monthly_fee'] = df_numeric['rental_fee'] + df_numeric['service_fee']
 
 # 敷金と礼金を数値に変換
 df_numeric['敷金'] = [i.replace('-','0') for i in df_numeric['敷金']]
-df_numeric['val_deposit'] = [float(i.split('万円')[0]) for i in df_numeric['敷金']]
+df_numeric['deposit'] = [float(i.split('万円')[0]) for i in df_numeric['敷金']]
 df_numeric['礼金'] = [i.replace('-','0') for i in df_numeric['礼金']]
-df_numeric['val_Reward'] = [float(i.split('万円')[0]) for i in df_numeric['礼金']]
+df_numeric['Reward'] = [float(i.split('万円')[0]) for i in df_numeric['礼金']]
 
 # 部屋面積を数値に変換
-df_numeric['val_area'] = [float(i.split('m2')[0]) for i in df_numeric['面積']]
+df_numeric['floor_area'] = [float(i.split('m2')[0]) for i in df_numeric['面積']]
 
 # 住所から区を抽出
 # df_numeric['section'] = [(i.split('区')[0]).replace('東京都', '') for i in df_numeric['アドレス']]
@@ -134,9 +134,9 @@ df_numeric['val_area'] = [float(i.split('m2')[0]) for i in df_numeric['面積']]
 # 保存
 df_numeric.to_csv('result/datasets.csv')
 
-#%% 相関を見る
-# df_numeric = df_numeric[df_numeric['val_monthly_fee']<100]
-plt.scatter(df_numeric['val_area'],df_numeric['val_monthly_fee'])
+# 相関を見る
+# df_numeric = df_numeric[df_numeric['monthly_fee']<100]
+plt.scatter(df_numeric['floor_area'],df_numeric['monthly_fee'])
 plt.xlabel('Area_size', fontsize=12)
 plt.ylabel('Monthly fee', fontsize=12)
-plt.show()
+plt.savefig('result/plot.png')
