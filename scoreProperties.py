@@ -207,7 +207,7 @@ data_filtered["nearest_line"] = [(i.split("/")[0]) for i in data_filtered["ア�
 fare_list = []
 transfer_count_list = []
 commute_time_list = []
-for home_station in data_filtered["nearest_st"]:
+for home_station in data_filtered["アドレス"]:
     trans_info = get_transfer_info(home_station, dest_station)
     transfer_count_list.append(trans_info["transfer_count"])
     fare_list.append(trans_info["fare"])
@@ -253,7 +253,7 @@ for tag_col, inv, w in zip(target_cols, inverter, target_weights):
     ]
     target_cols_score.append(tag_col + "_score")
 
-data_filtered["Total_score"] = data_filtered[target_cols_score].sum(axis=1)
+data_filtered["Total_score"] = data_filtered[target_cols_score].sum(axis=1).round(3)
 data_filtered.sort_values("Total_score", ascending=False)
 result = data_filtered[
     ["間取り", "区", "nearest_st", "nearest_line", "transfer_count", "fare"]
